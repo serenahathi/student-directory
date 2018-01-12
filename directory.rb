@@ -1,17 +1,24 @@
-# First, let's put all students into an array of hashes
-students = [
-{name: "Dr. Hannibal Lecter", cohort: :november},
-{name: "Darth Vader", cohort: :november},
-{name: "Nurse Ratched", cohort: :november},
-{name: "Michael Corleone", cohort: :november},
-{name: "Alex DeLarge", cohort: :november},
-{name: "The Wicked Witch of the West", cohort: :november},
-{name: "Terminator", cohort: :november},
-{name: "Freddy Krueger", cohort: :november},
-{name: "The Joker", cohort: :november},
-{name: "Joffrey Baratheon", cohort: :november},
-{name: "Norman Bates", cohort: :november}
-]
+# First, ask the user to enter the names of all attending students
+def input_students
+puts "Please enter the names of the students"
+puts "To finish, just hit return twice"
+# Create an empty array
+students = []
+# Get the first name from the user
+name = gets.chomp
+# While the name variable is not empty, repeat this code
+while !name.empty? do
+# Add each student hash to the array of hashes 
+  students << {name: name, cohort: :november}
+  puts "Now we have #{students.count} students"
+# Prompt the user to enter another student name  
+  name = gets.chomp
+end
+# Return the array of students 
+students
+end
+
+
 # This method prints the text in the header
 def print_header
   puts "The students of Villains Academy"
@@ -33,6 +40,9 @@ def print_footer(names)
 end
 
 # Here we call each method
+# We assign the array of students to the variable 'students' and then pass this variable on the print and print_footer methods
+# to the other methods for printing 
+students = input_students
 print_header
 print(students)
 print_footer(students)
