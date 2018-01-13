@@ -23,23 +23,16 @@ def interactive_menu
   end
 end
 
-# Ex 6 - Centered output
 @line_width = 50
 @cohort = [:January, :February, :March, :April, :May, :June, :July, :August, :September, :October, :November, :December, ""]
 
-# Ex 5 - Added input for hobbies, country of birth and height
 def input_students
 puts "Please enter the names of the students"
 puts "To finish, just hit return twice"
 students = []
 name = gets.strip.capitalize
 while !name.empty? do
-# Ex 7 - Asks user to input cohort and converts user input to a symbol.
-# Ex 7 - If no input is entered, the student's cohort is given a default value of 'unknown'
-# Ex 7 -  If user input includes an element inside the @cohorts array break the loop
-# Ex 7 - If user inputs a value that does not match any element inside the @cohorts array, ask them to re-inter input until it matches
 puts "Please enter #{name}'s cohort"
-# Ex 10 - Replaced ()chomp with ()strip to remove last return character
 cohort = gets.strip.capitalize.to_sym
   while true do
     if cohort.empty?
@@ -60,7 +53,6 @@ cohort = gets.strip.capitalize.to_sym
   puts "What is #{name}'s height?"
   height = gets.strip
   students << {name: name, cohort: cohort, hobby: hobby, country_of_birth: country_of_birth, height: height}
-  # Ex 9 - Amended output to account for singular and plural
   puts students.count == 1 ? "Now we have #{students.count} student" : "Now we have #{students.count} students"
   puts "Please enter the student's name"
   name = gets.strip
@@ -74,7 +66,6 @@ def print_header
 end
 
 def print(names)
-# Ex 12 - Do not print list if user has not inputted any students
   if names.count >= 1
     names.each do |student|
       puts "Name: #{student[:name]}".center(@line_width)
@@ -88,7 +79,6 @@ def print(names)
 end
 
 def print_footer(names)
-  # Ex 9 - Amended output to account for singular and plural
   puts names.count == 1 ? "Overall, we have #{names.count} great student".center(@line_width) : "Overall, we have #{names.count} great students".center(@line_width)
   puts " "
 end
