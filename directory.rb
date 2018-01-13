@@ -29,12 +29,22 @@ def print_with_index(names)
   end
 end
 
+# Ex 2 - Only print student names that begin with a certain letter
+def print_specific_letter(names, letter)
+  names.select do |student|
+    if student[:name].start_with?(letter)
+      puts "#{student[:name]} (#{student[:cohort]} cohort)"
+    end
+    end
+end
+
 def print_footer(names)
   puts "Overall, we have #{names.count} great students"
 end
 
 students = input_students
 print_header
-print(students)
+# print(students)
 # print_with_index(students)
+print_specific_letter(students,"S")
 print_footer(students)
