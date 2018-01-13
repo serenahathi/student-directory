@@ -12,6 +12,9 @@
 #   {name: "Norman Bates", cohort: :October, hobby: "Fishing", country_of_birth: "England", height: "5ft8"}
 # ]
 
+# Ex 6 - Centered output
+@line_width = 50
+
 # Ex 5 - Added input for hobbies, country of birth and height
 def input_students
 puts "Please enter the names of the students"
@@ -34,17 +37,17 @@ students
 end
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "--------------"
+  puts "The students of Villains Academy".center(@line_width)
+  puts "--------------".center(@line_width)
 end
 
 def print(names)
   names.each do |student|
-    puts "Name: #{student[:name]}"
-    puts "Cohort: #{student[:cohort]}"
-    puts "Favourite hobby: #{student[:hobby]}"
-    puts "Country of birth: #{student[:country_of_birth]}"
-    puts "Height: #{student[:height]}"
+    puts "Name: #{student[:name]}".center(@line_width)
+    puts "Cohort: #{student[:cohort]}".center(@line_width)
+    puts "Favourite hobby: #{student[:hobby]}".center(@line_width)
+    puts "Country of birth: #{student[:country_of_birth]}".center(@line_width)
+    puts "Height: #{student[:height]}".center(@line_width)
     puts " "
   end
 end
@@ -84,12 +87,13 @@ def print_using_loop(names)
 end
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+  puts "Overall, we have #{names.count} great students".center(@line_width)
+  puts " "
 end
 
 # user input:
 students = input_students
-# use test data:
+# # use test data:
 # input_students 
 print_header
 print(students)
