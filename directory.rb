@@ -28,7 +28,6 @@ while !name.empty? do
 # Ex 7 -  If user input includes an element inside the @cohorts array break the loop
 # Ex 7 - If user inputs a value that does not match any element inside the @cohorts array, ask them to re-inter input until it matches
 puts "Please enter #{name}'s cohort"
-# Converts user input to a symbol  
 cohort = gets.chomp.capitalize.to_sym
   while true do
     if cohort.empty?
