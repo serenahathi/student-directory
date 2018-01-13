@@ -21,14 +21,15 @@ def input_students
 puts "Please enter the names of the students"
 puts "To finish, just hit return twice"
 students = []
-name = gets.chomp.capitalize
+name = gets.strip.capitalize
 while !name.empty? do
 # Ex 7 - Asks user to input cohort and converts user input to a symbol.
 # Ex 7 - If no input is entered, the student's cohort is given a default value of 'unknown'
 # Ex 7 -  If user input includes an element inside the @cohorts array break the loop
 # Ex 7 - If user inputs a value that does not match any element inside the @cohorts array, ask them to re-inter input until it matches
 puts "Please enter #{name}'s cohort"
-cohort = gets.chomp.capitalize.to_sym
+# Ex 9 Replaced ()chomp with ()strip to remove last return character
+cohort = gets.strip.capitalize.to_sym
   while true do
     if cohort.empty?
        cohort = "Unknown"
@@ -42,16 +43,16 @@ cohort = gets.chomp.capitalize.to_sym
      end
    end
   puts "What is #{name}'s favourite hobby?"
-  hobby = gets.chomp.capitalize
+  hobby = gets.strip.capitalize
   puts "What is #{name}'s country of birth?"
-  country_of_birth = gets.chomp.capitalize
+  country_of_birth = gets.strip.capitalize
   puts "What is #{name}'s height"
-  height = gets.chomp
+  height = gets.strip
   students << {name: name, cohort: cohort, hobby: hobby, country_of_birth: country_of_birth, height: height}
   # Ex 9 - Amended output to account for singular and plural
   puts students.count == 1 ? "Now we have #{students.count} student" : "Now we have #{students.count} students"
   puts "Please enter the student's name"
-  name = gets.chomp
+  name = gets.strip
 end
 students
 end
