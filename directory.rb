@@ -48,7 +48,8 @@ cohort = gets.chomp.capitalize.to_sym
   puts "What is #{name}'s height"
   height = gets.chomp
   students << {name: name, cohort: cohort, hobby: hobby, country_of_birth: country_of_birth, height: height}
-  puts "Now we have #{students.count} students"
+  # Ex 9 - Amended output to account for singular and plural
+  puts students.count == 1 ? "Now we have #{students.count} student" : "Now we have #{students.count} students"
   puts "Please enter the student's name"
   name = gets.chomp
 end
@@ -129,7 +130,9 @@ end
 end
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students".center(@line_width)
+  # Ex 9 - Amended output to account for singular and plural
+  puts names.count == 1 ? "Overall, we have #{names.count} great student".center(@line_width) : "Overall, we have #{names.count} great students".center(@line_width)
+  # puts "Overall, we have #{names.count} great students".center(@line_width)
   puts " "
 end
 
@@ -143,5 +146,5 @@ print(students)
 # print_specific_letter(students,"S")
 # print_less_than_twelve_characters(students)
 # print_using_loop(students)
-# print_footer(students)
-print_by_cohort(students)
+print_footer(students)
+# print_by_cohort(students)
