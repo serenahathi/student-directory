@@ -47,6 +47,15 @@ def print_less_than_twelve_characters(names)
     end
 end
 
+# Ex 4 - Use a loop rather than each() to iterate over the array of students
+def print_using_loop(names)
+  counter = 0  
+  until counter == names.length do
+    puts "#{names[counter][:name]} (#{names[counter][:cohort]} cohort)"
+    counter +=1
+  end
+end
+
 def print_footer(names)
   puts "Overall, we have #{names.count} great students"
 end
@@ -56,5 +65,6 @@ print_header
 # print(students)
 # print_with_index(students)
 # print_specific_letter(students,"S")
-print_less_than_twelve_characters(students)
+# print_less_than_twelve_characters(students)
+print_using_loop(students)
 print_footer(students)
