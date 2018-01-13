@@ -38,6 +38,15 @@ def print_specific_letter(names, letter)
     end
 end
 
+# Ex 3 - Only print names that are less than 12 characters long
+def print_less_than_twelve_characters(names)
+  names.select do |student|
+    if student[:name].length < 12
+      puts "#{student[:name]} (#{student[:cohort]} cohort)"
+    end
+    end
+end
+
 def print_footer(names)
   puts "Overall, we have #{names.count} great students"
 end
@@ -46,5 +55,6 @@ students = input_students
 print_header
 # print(students)
 # print_with_index(students)
-print_specific_letter(students,"S")
+# print_specific_letter(students,"S")
+print_less_than_twelve_characters(students)
 print_footer(students)
