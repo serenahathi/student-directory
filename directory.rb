@@ -63,13 +63,16 @@ def print_header
 end
 
 def print(names)
-  names.each do |student|
-    puts "Name: #{student[:name]}".center(@line_width)
-    puts "Cohort: #{student[:cohort]}".center(@line_width)
-    puts "Favourite hobby: #{student[:hobby]}".center(@line_width)
-    puts "Country of birth: #{student[:country_of_birth]}".center(@line_width)
-    puts "Height: #{student[:height]}".center(@line_width)
-    puts " "
+# Ex 12 - Do not print list if user has not inputted any students
+  if names.count > 1
+    names.each do |student|
+      puts "Name: #{student[:name]}".center(@line_width)
+      puts "Cohort: #{student[:cohort]}".center(@line_width)
+      puts "Favourite hobby: #{student[:hobby]}".center(@line_width)
+      puts "Country of birth: #{student[:country_of_birth]}".center(@line_width)
+      puts "Height: #{student[:height]}".center(@line_width)
+      puts " "
+    end
   end
 end
 
