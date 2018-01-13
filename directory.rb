@@ -105,6 +105,29 @@ def print_using_loop(names)
   end
 end
 
+# Ex 8 - Print students by cohort
+def print_by_cohort(names)
+
+sorted_by_cohort = {}  
+
+names.each do |student_hash|
+  student_cohort = student_hash[:cohort]
+  student_names = student_hash[:name]
+
+if sorted_by_cohort[student_cohort] == nil
+  sorted_by_cohort[student_cohort] = []  
+end
+  sorted_by_cohort[student_cohort] << student_names
+end
+
+puts "Students sorted by cohort:"
+sorted_by_cohort.each do |key, value|
+  puts " "
+  puts key
+  puts value
+end
+end
+
 def print_footer(names)
   puts "Overall, we have #{names.count} great students".center(@line_width)
   puts " "
@@ -121,3 +144,4 @@ print(students)
 # print_less_than_twelve_characters(students)
 # print_using_loop(students)
 # print_footer(students)
+print_by_cohort(students)
