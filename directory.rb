@@ -14,6 +14,7 @@
 
 # Ex 6 - Centered output
 @line_width = 50
+@cohort = [:January, :February, :March, :April, :May, :June, :July, :August, :September, :October, :November, :December, ""]
 
 # Ex 5 - Added input for hobbies, country of birth and height
 def input_students
@@ -22,13 +23,32 @@ puts "To finish, just hit return twice"
 students = []
 name = gets.chomp.capitalize
 while !name.empty? do
+# Ex 7 - Asks user to input cohort and converts user input to a symbol.
+# Ex 7 - If no input is entered, the student's cohort is given a default value of 'unknown'
+# Ex 7 -  If user input includes an element inside the @cohorts array break the loop
+# Ex 7 - If user inputs a value that does not match any element inside the @cohorts array, ask them to re-inter input until it matches
+puts "Please enter #{name}'s cohort"
+# Converts user input to a symbol  
+cohort = gets.chomp.capitalize.to_sym
+  while true do
+    if cohort.empty?
+       cohort = "Unknown"
+       break
+     elsif @cohort.include?(cohort)
+       break
+     else
+       puts "Cohort does not exist. Please correct any typos"
+       cohort = gets.chomp.capitalize.to_sym
+       break if @cohort.include?(cohort)
+     end
+   end
   puts "What is #{name}'s favourite hobby?"
   hobby = gets.chomp.capitalize
   puts "What is #{name}'s country of birth?"
   country_of_birth = gets.chomp.capitalize
   puts "What is #{name}'s height"
   height = gets.chomp
-  students << {name: name, cohort: :November, hobby: hobby, country_of_birth: country_of_birth, height: height}
+  students << {name: name, cohort: cohort, hobby: hobby, country_of_birth: country_of_birth, height: height}
   puts "Now we have #{students.count} students"
   puts "Please enter the student's name"
   name = gets.chomp
@@ -93,7 +113,7 @@ end
 
 # user input:
 students = input_students
-# # use test data:
+# use test data:
 # input_students 
 print_header
 print(students)
@@ -101,4 +121,4 @@ print(students)
 # print_specific_letter(students,"S")
 # print_less_than_twelve_characters(students)
 # print_using_loop(students)
-print_footer(students)
+# print_footer(students)
