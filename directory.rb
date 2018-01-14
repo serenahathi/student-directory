@@ -1,12 +1,11 @@
 @students = []
-
 @line_width = 50
 @cohort = [:January, :February, :March, :April, :May, :June, :July, :August, :September, :October, :November, :December, ""]
- 
+
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -23,15 +22,15 @@ def process(selection)
     when "1"
       input_students
     when "2"
-      show_students 
+      show_students
     when "3"
-      save_students 
+      save_students
     when "4"
-      load_students   
+      load_students
     when "9"
       exit
     else
-      puts "I don't know what you mean, try again"   
+      puts "I don't know what you mean, try again"
   end
 end
 
@@ -44,10 +43,10 @@ def input_students
 puts "Please enter the names of the students"
 puts "To finish, just hit return twice"
 @students = []
-name = gets.strip.capitalize
+name = STDIN.gets.strip.capitalize
 while !name.empty? do
 puts "Please enter #{name}'s cohort"
-cohort = gets.strip.capitalize.to_sym
+cohort = STDIN.gets.strip.capitalize.to_sym
   while true do
     if cohort.empty?
        cohort = "Unknown"
@@ -56,20 +55,20 @@ cohort = gets.strip.capitalize.to_sym
        break
      else
        puts "Cohort does not exist. Please correct any typos"
-       cohort = gets.chomp.capitalize.to_sym
+       cohort = STDIN.gets.chomp.capitalize.to_sym
        break if @cohort.include?(cohort)
      end
    end
   puts "What is #{name}'s favourite hobby?"
-  hobby = gets.strip.capitalize
+  hobby = STDIN.gets.strip.capitalize
   puts "What is #{name}'s country of birth?"
-  country_of_birth = gets.strip.capitalize
+  country_of_birth = STDIN.gets.strip.capitalize
   puts "What is #{name}'s height?"
-  height = gets.strip
+  height = STDIN.gets.strip
   @students << {name: name, cohort: cohort, hobby: hobby, country_of_birth: country_of_birth, height: height}
   puts @students.count == 1 ? "Now we have #{@students.count} student" : "Now we have #{@students.count} students"
   puts "Please enter the student's name"
-  name = gets.strip
+  name = STDIN.gets.strip
 end
 end
 
@@ -107,15 +106,28 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort, hobby, country_of_birth, height = line.chomp.split(",")
-  @students << {name: name, cohort: cohort, country_of_birth: country_of_birth, height: height}
+  puts @students << {name: name, cohort: cohort, country_of_birth: country_of_birth, height: height}
 end
 file.close
 end
 
+def try_load_students 
+  filename = ARGV.first # First argument from the command line 
+  return if filename.nil? # Get out of the method if it isn't given
+  if File.exists?(filename) # If it exists
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else #If it doesn't exist
+    puts "Sorry, #{filename} does not exist."
+    exit # Quit the program
+  end
+end
+try_load_students
 interactive_menu
 
 =begin
@@ -149,7 +161,7 @@ end
 
 # Ex 4 - Use a loop rather than each() to iterate over the array of students
 def print_using_loop
-  counter = 0  
+  counter = 0
   until counter == @students.length do
     puts "#{@students[counter][:name]} #{@students[counter][:cohort]} cohort"
     counter +=1
@@ -159,14 +171,14 @@ end
 # Ex 8 - Print students by cohort
 def print_by_cohort
 
-sorted_by_cohort = {}  
+sorted_by_cohort = {}
 
 @students.each do |student_hash|
   student_cohort = student_hash[:cohort]
   student_names = student_hash[:name]
 
 if sorted_by_cohort[student_cohort] == nil
-  sorted_by_cohort[student_cohort] = []  
+  sorted_by_cohort[student_cohort] = []
 end
   sorted_by_cohort[student_cohort] << student_names
 end
