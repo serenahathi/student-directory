@@ -15,8 +15,8 @@ def print_menu
   puts " "
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list to a file"
+  puts "4. Load the list from a file"
   puts "9. Exit"
 end
 
@@ -29,7 +29,7 @@ def process(selection)
     when "3"
       save_students
     when "4"
-      load_students
+      select_where_to_load_from
     when "9"
       exit
     else
@@ -109,7 +109,10 @@ def print_footer
 end
 
 def save_students
-  file = File.open("students.csv", "w")
+  puts "What file would you like to save to? Hit enter to save to students.csv"
+  user_file_input = STDIN.gets.strip
+  user_file_input.empty? ? user_file_input = "students.csv" : user_file_input
+  file = File.open(user_file_input, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort], student[:hobby], student[:country_of_birth], student[:height]]
     csv_line = student_data.join(",")
@@ -119,8 +122,23 @@ def save_students
   puts "Option 3 successfully completed".center(@line_width)
 end
 
-def load_students(filename="students.csv")
-  file = File.open(filename, "r")
+def select_where_to_load_from
+    puts "What file would you like to load from? Hit enter to load students.csv"
+  user_file_input = STDIN.gets.strip
+  if user_file_input.empty?
+    user_file_input = "students.csv"
+    read_file(user_file_input)
+  elsif File.exists?(user_file_input) == false
+    puts "Sorry, #{user_file_input} does not exist."
+    exit  
+  else
+    user_file_input
+    read_file(user_file_input)
+  end
+end
+
+def read_file(filename)
+file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort, hobby, country_of_birth, height = line.chomp.split(",")
   add_student_to_array(name, cohort, hobby, country_of_birth, height)
@@ -133,9 +151,9 @@ end
 def load_students_on_startup
   filename = ARGV.first # First argument from the command line 
   if filename.nil?
-    load_students
+    select_where_to_load_from
   elsif File.exists?(filename)
-    load_students(filename)
+    read_file(filename)
   else
     puts "Sorry #{filename} does not exist."
     exit
