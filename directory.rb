@@ -10,6 +10,9 @@ def interactive_menu
 end
 
 def print_menu
+  puts " "
+  puts "Please select an option:"
+  puts " "
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
@@ -66,11 +69,14 @@ cohort = STDIN.gets.strip.capitalize.to_sym
   puts "What is #{name}'s height?"
   height = STDIN.gets.strip
   add_student_to_array(name, cohort, hobby, country_of_birth, height)
-  # @students << {name: name, cohort: cohort, hobby: hobby, country_of_birth: country_of_birth, height: height}
   puts @students.count == 1 ? "Now we have #{@students.count} student" : "Now we have #{@students.count} students"
   puts "Please enter the student's name"
   name = STDIN.gets.strip
 end
+puts " "
+puts "Option 1 successfully completed".center(@line_width)
+puts " "
+@students
 end
 
 def add_student_to_array(name, cohort, hobby, country_of_birth, height)
@@ -81,6 +87,7 @@ def show_students
   print_header
   print_student_list
   print_footer
+  puts "Option 2 successfully completed".center(@line_width)
 end
 
 def print_student_list
@@ -109,8 +116,8 @@ def save_students
     file.puts csv_line
   end
   file.close
+  puts "Option 3 successfully completed".center(@line_width)
 end
-
 
 def load_students(filename="students.csv")
   file = File.open(filename, "r")
@@ -120,9 +127,10 @@ def load_students(filename="students.csv")
   puts line
 end
 file.close
+puts "Option 4 successfully completed".center(@line_width)
 end
 
-def try_load_students
+def load_students_on_startup
   filename = ARGV.first # First argument from the command line 
   if filename.nil?
     load_students
@@ -134,8 +142,13 @@ def try_load_students
   end
 end  
 
-try_load_students
+load_students_on_startup
 interactive_menu
+
+
+
+
+
 
 =begin
 # Previous exercises - refactored to account for students array now being an instance variable
