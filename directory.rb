@@ -112,14 +112,14 @@ def save_students
   puts "What file would you like to save to? Hit enter to save to students.csv"
   user_file_input = STDIN.gets.strip
   user_file_input.empty? ? user_file_input = "students.csv" : user_file_input
-  file = File.open(user_file_input, "w")
+  file = File.open(user_file_input, "w") do |file|
   @students.each do |student|
     student_data = [student[:name], student[:cohort], student[:hobby], student[:country_of_birth], student[:height]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
-  file.close
-  puts "Option 3 successfully completed".center(@line_width)
+end
+puts "Option 3 successfully completed".center(@line_width)
 end
 
 def select_where_to_load_from
@@ -144,7 +144,6 @@ file = File.open(filename, "r")
   add_student_to_array(name, cohort, hobby, country_of_birth, height)
   puts line
 end
-file.close
 puts "Option 4 successfully completed".center(@line_width)
 end
 
