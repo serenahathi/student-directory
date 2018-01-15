@@ -65,11 +65,16 @@ cohort = STDIN.gets.strip.capitalize.to_sym
   country_of_birth = STDIN.gets.strip.capitalize
   puts "What is #{name}'s height?"
   height = STDIN.gets.strip
-  @students << {name: name, cohort: cohort, hobby: hobby, country_of_birth: country_of_birth, height: height}
+  add_student_to_array(name, cohort, hobby, country_of_birth, height)
+  # @students << {name: name, cohort: cohort, hobby: hobby, country_of_birth: country_of_birth, height: height}
   puts @students.count == 1 ? "Now we have #{@students.count} student" : "Now we have #{@students.count} students"
   puts "Please enter the student's name"
   name = STDIN.gets.strip
 end
+end
+
+def add_student_to_array(name, cohort, hobby, country_of_birth, height)
+  @students << {name: name, cohort: cohort, hobby: hobby, country_of_birth: country_of_birth, height: height}
 end
 
 def show_students
@@ -111,7 +116,8 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort, hobby, country_of_birth, height = line.chomp.split(",")
-  puts @students << {name: name, cohort: cohort, country_of_birth: country_of_birth, height: height}
+  # puts @students << {name: name, cohort: cohort, country_of_birth: country_of_birth, height: height}
+  add_student_to_array(name, cohort, hobby, country_of_birth, height)
 end
 file.close
 end
