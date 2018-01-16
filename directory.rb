@@ -1,4 +1,5 @@
 require "csv"
+
 @students = []
 @line_width = 50
 @cohort = [:January, :February, :March, :April, :May, :June, :July, :August, :September, :October, :November, :December, ""]
@@ -158,6 +159,13 @@ def load_students_on_startup
     exit
   end
 end  
+
+def read_source_code
+  puts __FILE__
+  File.open(__FILE__, 'r') do |file|
+      puts file.read
+  end  
+end
 
 load_students_on_startup
 interactive_menu
