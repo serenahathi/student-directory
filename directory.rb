@@ -1,3 +1,4 @@
+require "csv"
 @students = []
 @line_width = 50
 @cohort = [:January, :February, :March, :April, :May, :June, :July, :August, :September, :October, :November, :December, ""]
@@ -112,15 +113,29 @@ def save_students
   puts "What file would you like to save to? Hit enter to save to students.csv"
   user_file_input = STDIN.gets.strip
   user_file_input.empty? ? user_file_input = "students.csv" : user_file_input
-  file = File.open(user_file_input, "w") do |file|
-  @students.each do |student|
+  CSV.open(user_file_input, "w") do |csv|
+    @students.each do |student|
     student_data = [student[:name], student[:cohort], student[:hobby], student[:country_of_birth], student[:height]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+    csv.puts student_data
   end
 end
 puts "Option 3 successfully completed".center(@line_width)
 end
+
+
+# def save_students
+#   puts "What file would you like to save to? Hit enter to save to students.csv"
+#   user_file_input = STDIN.gets.strip
+#   user_file_input.empty? ? user_file_input = "students.csv" : user_file_input
+#   file = File.open(user_file_input, "w") do |file|
+#   @students.each do |student|
+#     student_data = [student[:name], student[:cohort], student[:hobby], student[:country_of_birth], student[:height]]
+#     csv_line = student_data.join(",")
+#     file.puts csv_line
+#   end
+# end
+# puts "Option 3 successfully completed".center(@line_width)
+# end
 
 def select_where_to_load_from
     puts "What file would you like to load from? Hit enter to load students.csv"
@@ -138,14 +153,24 @@ def select_where_to_load_from
 end
 
 def read_file(filename)
-file = File.open(filename, "r")
-  file.readlines.each do |line|
-  name, cohort, hobby, country_of_birth, height = line.chomp.split(",")
-  add_student_to_array(name, cohort, hobby, country_of_birth, height)
-  puts line
-end
-puts "Option 4 successfully completed".center(@line_width)
-end
+  CSV.foreach(filename) do |row|
+    name, cohort, hobby, country_of_birth, height = row
+      add_student_to_array(name, cohort, hobby, country_of_birth, height)
+      puts row
+      puts " "
+    end
+    puts "Option 4 successfully completed".center(@line_width)
+    end
+
+# def read_file(filename)
+# file = File.open(filename, "r")
+#   file.readlines.each do |line|
+#   name, cohort, hobby, country_of_birth, height = line.chomp.split(",")
+#   add_student_to_array(name, cohort, hobby, country_of_birth, height)
+#   puts line
+# end
+# puts "Option 4 successfully completed".center(@line_width)
+# end
 
 def load_students_on_startup
   filename = ARGV.first # First argument from the command line 
